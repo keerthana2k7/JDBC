@@ -23,11 +23,12 @@
             <version>42.7.10</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.tamilnadujug</groupId>
-            <artifactId>sql-builder</artifactId>
-            <version>1.0</version>
-        </dependency>
+<!--        Uncomment for SqlBuilder-->
+<!--        <dependency>-->
+<!--            <groupId>org.tamilnadujug</groupId>-->
+<!--            <artifactId>sql-builder</artifactId>-->
+<!--            <version>1.0</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
