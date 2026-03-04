@@ -1,34 +1,59 @@
-package org.example;//TIP To <b>Run</b> code, press <shortcut actionId="Run"/>rc="AllIcons.Actions.Execute"/> icon in the gutter.
+package org.example;
 
 import org.postgresql.ds.PGSimpleDataSource;
 
+import javax.sql.DataSource;
 import java.sql.SQLException;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
 public class Main {
-        public static void main(String[] args) throws SQLException {
-            PGSimpleDataSource ds = new PGSimpleDataSource();
-            ds.setServerName("localhost");
-            ds.setPortNumber(5434);
-            ds.setDatabaseName("keerthana_db");
-            ds.setUser("keerthana");
-            ds.setPassword("password");
 
-            MovieDao dao = new MovieDao(ds);
+    public static void main(String[] args) throws SQLException {
+        DataSource dataSource = getDataSource();
 
-            try {
-                dao.save(new Movie(1, "Interstellar", "Nolan"));
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
+        String dbVersion = null;
+
+        // Formality - 1
+        String sqlQuery = "select version();";
+
+        try(Connection connection = dataSource.getConnection(); // Formality - 2
+            Statement statement = connection.createStatement(); // Formality - 3
+            ResultSet resultSet = statement.executeQuery(sqlQuery)) { // Formality - 4
+            if(resultSet.next()) { // Formality - 5
+                dbVersion = resultSet.getString(1);
             }
-
-            // UPDATE
-            dao.update(new Movie(1, "Inception", "Christopher Nolan"));
-
-            // FIND
-            Movie movie = dao.findById(1);
-            System.out.println(movie);
-
-//        // DELETE
-            dao.delete(1);
         }
+
+        System.out.println(dbVersion);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    private static PGSimpleDataSource getDataSource() {
+        PGSimpleDataSource dataSource = new PGSimpleDataSource();
+        dataSource.setServerNames(new String[]{"localhost"});
+        dataSource.setPortNumbers(new int[]{5432});
+        dataSource.setDatabaseName("sampledb");
+        dataSource.setUser("sampledb");
+        dataSource.setPassword("sampledb");
+        return dataSource;
+    }
 }
