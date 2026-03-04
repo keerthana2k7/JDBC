@@ -16,13 +16,16 @@ public class Main {
 
         String dbVersion = null;
 
-        // Formality - 1
         String sqlQuery = "select version();";
 
-        try(Connection connection = dataSource.getConnection(); // Formality - 2
-            Statement statement = connection.createStatement(); // Formality - 3
-            ResultSet resultSet = statement.executeQuery(sqlQuery)) { // Formality - 4
-            if(resultSet.next()) { // Formality - 5
+        // Formality - 1
+        try(
+                Connection connection = dataSource.getConnection(); // Formality - 2
+                Statement statement = connection.createStatement(); // Formality - 3
+                ResultSet resultSet = statement.executeQuery(sqlQuery) // Formality - 4
+        ) {
+            // Formality - 5
+            if(resultSet.next()) {
                 dbVersion = resultSet.getString(1);
             }
         }
