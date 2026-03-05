@@ -14,7 +14,7 @@ import java.sql.Types;
 import java.util.Arrays;
 
 
-public class Main {
+public class QueryExample {
 
     public static void main(String[] args) throws SQLException {
         DataSource dataSource = getDataSource();
