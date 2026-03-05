@@ -44,10 +44,10 @@ public class QueryExample {
 
         // S 2
 
-        sql = "{? = call insert_movie_fn(?, ?)}";
+        String sqlofStoredProc = "{? = call insert_movie_fn(?, ?)}";
 
         try (Connection connection = dataSource.getConnection();
-             CallableStatement cs = connection.prepareCall(sql)) {
+             CallableStatement cs = connection.prepareCall(sqlofStoredProc)) {
 
             // Register OUT parameter (return value)
             cs.registerOutParameter(1, Types.BIGINT);
@@ -69,10 +69,10 @@ public class QueryExample {
 
         int[] updatedRows;
 
-        sql = "INSERT INTO movie(title, directed_by) VALUES (?, ?)";
+        String sqlForBatch = "INSERT INTO movie(title, directed_by) VALUES (?, ?)";
 
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement ps = connection.prepareStatement(sql)) {
+             PreparedStatement ps = connection.prepareStatement(sqlForBatch)) {
 
             // First batch entry
             ps.setString(1, "Interstellar");
